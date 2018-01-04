@@ -8,26 +8,26 @@ import { Subject } from 'rxjs';
 export class LoginService {
     public loginSubject = new Subject<any>();
     _baseUrl : string = "http://localhost:13718/Account";
-
+     
     options = new RequestOptions({
            withCredentials : true
-    });
+    }); 
     constructor(private http: Http) { }
-
-    public login(currentUser : User) {
-
+   
+    public login(currentUser : User) {     
+      
         let _currentUser = JSON.stringify(currentUser);
         return this.http.post(this._baseUrl + '/Login', currentUser, this.options)
          .toPromise()
          .catch(this.handleError);
 
-    }
-    public logout(){
+    }   
+    public logout(){ 
         return this.http.get( this._baseUrl + '/Logout', this.options)
         .toPromise()
         .catch(this.handleError);
     }
     private handleError(error: any): Promise<any> {
         return Promise.reject(error.message || error);
-      }
+      }    
 }
